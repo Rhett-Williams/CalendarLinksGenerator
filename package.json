@@ -1,0 +1,19 @@
+{
+  "name": "parcellinkgenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node my-script.js",
+    "build": "pkg index.js --output calendarLinkGenerator"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ics": "^3.2.0",
+    "pkg": "^5.8.1",
+    "readline-sync": "^1.4.10",
+    "uuid": "^9.0.0"
+  }
+}
