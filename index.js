@@ -49,7 +49,6 @@ function createGmailCalendarLink(title, location, year, month, day, time) {
     const calendarLink = createGmailCalendarLink(title, location, year, month, day, time);
     const calendarLink2 = createOutlookCalendarLink(title, location, year, month, day, time);
     const folderPath = path.join(path.dirname(process.execPath), `outputs_${title}`);
-    console.log(title, location, year, month, day, time)
 
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath);
@@ -67,21 +66,31 @@ function createGmailCalendarLink(title, location, year, month, day, time) {
         writeFileSync(path.join(folderPath, `event${uuid}.ics`), value)
       })
 
+      const currentDate = new Date();
+    const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const currentYear = currentDate.getFullYear().toString();
+
     const html = `<p><strong>Add to Calendar:</strong>
     </p>
     <p>
       <a href="${calendarLink}" target="_blank">GOOGLE</a>&nbsp;|
-      <a download="event.ics" href="https://marketingforms.net/wp-content/uploads/${year}/${month}/event${uuid}.ics">LOCAL</a> &nbsp;|<a href="${calendarLink2}" target="_blank">OUTLOOK</a>&nbsp;|</p>`
+      <a download="event.ics" href="https://marketingforms.net/wp-content/uploads/${currentYear}/${currentMonth}/event${uuid}.ics">LOCAL</a> &nbsp;|<a href="${calendarLink2}" target="_blank">OUTLOOK</a>&nbsp;|</p>`
     
-    fs.writeFile(path.join(folderPath, 'CALENDARLINKS.html'), html, (err) => {
+    fs.writeFile(path.join(folderPath, 'CALENDARLINKS.txt'), html, (err) => {
         if (err) {
-          console.error('Error creating the HTML file:', err);
+          console.error('Error creating the txt file:', err);
         } else {
-          console.log('HTML file created successfully!');
+        //   console.log('HTML file created successfully!');
         }
       });
 
-      console.log("\n DONT FORGET TO UPLOAD THE ICS FILE TO MARKETING FORMS \n")
+      console.log(`\n Files created in the outputs_${title} folder \n`)
+      console.log(`\n Copy and paste the html from the txt file into a pardot html field \n`)
+      console.log("\n And upload the ics file to marketing forms \n")
+
+      setTimeout(() => {
+        process.exit();
+      }, 15000);
     }
     createHtml()
 
